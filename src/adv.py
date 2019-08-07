@@ -1,4 +1,10 @@
 from room import Room
+from player import Player
+from item import Item
+
+import colorama
+colorama.init(autoreset=True)
+
 
 # Declare all the rooms
 
@@ -33,6 +39,35 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
+# Create items
+
+torch = Item("torch", "A flaming torch")
+key = Item("key", "I can get inside with this")
+book = Item("book", "A large spellbook")
+eyeglasses = Item("eyeglasses", "I can see better with these")
+telescope = Item("telescope", "Useful for stargazing")
+rope = Item("rope", "I can hang myself with this")
+shovel = Item("shovel", "A small shovel")
+compass = Item("compass", "N.E.S.W")
+chest = Item("chest", "Chest appears empty :(")
+dust = Item("dust", "Just dust.")
+
+
+# Link items to rooms
+
+room['outside'].items.append(torch)
+room['outside'].items.append(key)
+room['foyer'].items.append(book)
+room['foyer'].items.append(eyeglasses)
+room['overlook'].items.append(telescope)
+room['overlook'].items.append(rope)
+room['narrow'].items.append(shovel)
+room['narrow'].items.append(compass)
+room['treasure'].items.append(chest)
+room['treasure'].items.append(dust)
+
+
 #
 # Main
 #
@@ -43,9 +78,60 @@ room['treasure'].s_to = room['narrow']
 #
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
+
 # * Waits for user input and decides what to do.
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
+
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+p = Player("Austin", room['outside'])
+
+current_room = p.room
+print(current_room)
+
+
+valid_directions = ["n", "s", "e", "w"]
+
+while True:
+
+    print(colorama.Style.BRIGHT +
+          "type [n] [s] [e] or [w] to go that direction")
+    print(colorama.Style.BRIGHT +
+          "type [get (item)] to pickup item, or [drop (item)] to drop item")
+    print(colorama.Style.BRIGHT +
+          "type [i] to see your inventory")
+    cmd = input(">>").lower()
+    action = cmd.split(" ")
+
+    if len(action) == 1:
+        if cmd in valid_directions:
+            p.travel(cmd)
+        elif cmd == "i":
+            p.print_inventory()
+        elif cmd == "q":
+            print("Fare thee well!")
+            exit()
+        else:
+            print(colorama.Fore.RED + "\nI did not recognize that command\n")
+
+    elif len(action) == 2:
+        # Picking up items in room
+        if action[0] == "get" or action[0] == "take":
+            for item in p.room.items:
+                if item and item.name == action[1]:
+                    p.get_item(item)
+                else:
+                    print(colorama.Fore.RED + "\nItem not found in room\n")
+
+        # Dropping items in room
+        elif action[0] == "drop" or action[0] == "remove":
+            for item in p.items:
+                if item and item.name == action[1]:
+                    p.drop_item(item)
+                else:
+                    print(colorama.Fore.RED +
+                          "\nItem not found in your inventory\n")
