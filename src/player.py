@@ -35,6 +35,14 @@ class Player:
         else:
             print(colorama.Fore.YELLOW + "\nYou are carrying: Nothing\n")
 
+    def print_help(self):
+        print(colorama.Style.BRIGHT +
+              "type [n] [s] [e] or [w] to go that direction")
+        print(colorama.Style.BRIGHT +
+              "type [get (item)] to pickup item, or [drop (item)] to drop item")
+        print(colorama.Style.BRIGHT +
+              "type [i] to see your inventory")
+
     def get_item(self, item):
         # if item in self.room.items:
         self.items.append(item)

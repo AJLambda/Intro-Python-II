@@ -98,12 +98,8 @@ valid_directions = ["n", "s", "e", "w"]
 
 while True:
 
-    print(colorama.Style.BRIGHT +
-          "type [n] [s] [e] or [w] to go that direction")
-    print(colorama.Style.BRIGHT +
-          "type [get (item)] to pickup item, or [drop (item)] to drop item")
-    print(colorama.Style.BRIGHT +
-          "type [i] to see your inventory")
+    print(colorama.Style.BRIGHT + colorama.Fore.GREEN +
+          "type [h] for help")
     cmd = input(">>").lower()
     action = cmd.split(" ")
 
@@ -112,6 +108,8 @@ while True:
             p.travel(cmd)
         elif cmd == "i":
             p.print_inventory()
+        elif cmd == "h":
+            p.print_help()
         elif cmd == "q":
             print("Fare thee well!")
             exit()
