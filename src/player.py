@@ -47,7 +47,7 @@ class Player:
         # if item in self.room.items:
         self.items.append(item)
         self.room.items.remove(item)
-        item.on_take()
+
 
         # else:
         #print(colorama.Fore.RED + "\nItem not found in room\n")
@@ -56,7 +56,7 @@ class Player:
         # item in self.room.items:
         self.items.remove(item)
         self.room.items.append(item)
-        item.on_drop()
+
 
         # else:
         #print(colorama.Fore.RED + "\nItem not found in room\n")

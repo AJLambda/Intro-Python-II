@@ -120,16 +120,13 @@ while True:
         # Picking up items in room
         if action[0] == "get" or action[0] == "take":
             for item in p.room.items:
-                if item and item.name == action[1]:
+                if item.name == action[1]:
                     p.get_item(item)
-                else:
-                    print(colorama.Fore.RED + "\nItem not found in room\n")
+                    print(item.on_take())
 
         # Dropping items in room
-        elif action[0] == "drop" or action[0] == "remove":
+        if action[0] == "drop" or action[0] == "remove":
             for item in p.items:
-                if item and item.name == action[1]:
+                if item.name == action[1]:
                     p.drop_item(item)
-                else:
-                    print(colorama.Fore.RED +
-                          "\nItem not found in your inventory\n")
+                    print(item.on_drop())

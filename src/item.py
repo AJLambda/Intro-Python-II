@@ -16,7 +16,7 @@ class Item:
         return (f"name: {self.name} description:{self.description}")
 
     def on_take(self):
-        print(colorama.Fore.BLUE + f"\nyou have picked up {self.name}\n")
+        return colorama.Fore.BLUE + f"\nyou have picked up {self.name}\n"
 
     def on_drop(self):
-        print(colorama.Fore.BLUE + f"\nyou have dropped {self.name}\n")
+        return colorama.Fore.BLUE + f"\nyou have dropped {self.name}\n"

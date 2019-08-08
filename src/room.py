@@ -30,7 +30,7 @@ class Room:
         if len(self.items) > 0:
             return "Room Items: " + ", ".join([item.name for item in self.items])
         else:
-            return ""
+            return "Room Items: None"
 
     def _get_exits_string(self):
         exits = []
